@@ -1,0 +1,136 @@
+== Other stuff ==
+Infix functions: a .f b
+Generics: List<String, Integer>
+
+== Comments ==
+// comment
+
+/*
+  Multiline comment
+*/
+
+/// Documentation comment (maybe?)
+
+== Permitted characters in identifiers ==
+Anything but operators
+
+== Operators ==
+https://msdn.microsoft.com/en-us/library/czs2584d.aspx
++  = addition
+-  = subtraction
+/  = division
+*  = multiplication
+** = math.pow
+%  = modulus (♥️)
+!  = negation
+
+== Functions ==
+name (a) : {
+  // body
+}
+// lambdas
+fn (
+  (x) : { print(x) }
+)
+
+call ()
+
+composition () supported ()
+composition (),
+  supported ()
+//equals
+composition ( supported () )
+//example
+switch (var),
+  case (:a) {//stuff//},
+  case (:b) {//stuff//}
+//equals
+switch (var, case (:a, {//stuff//}), case (:b, {//stuff//}))
+
+blocks (String anything) {
+  // block
+}
+//equals
+blocks (String anything, {
+  //block
+})
+
+
+== Types ==
+String
+  Char
+  Set<Char>
+Number
+  Integer
+  Float
+Boolean
+Table
+  Set
+  Hash
+  List
+  Object*
+Null
+Function
+Class
+  Object
+
+== Classes ==
+
+
+
+== K E Y W O R D S ? ==
+
++ let's see
+- pls no then/do ... end. that becomes a pain to write after some time T-T
++ {...}?
+- that's an option
++ I ain't using indentation-based syntax like python or haskell
+- yea that's even more painful.
+- what about turning if into an expression too, instead of a block
++ explain
+- then you can do things like `var = if true { 1 } else { 0 }`
+- actually, I don' think that would work with our language design, meh. idk
++ i mean, it's cool, and iirc ruby has that, mentioning ruby, i like the .each {...} stuff, maybe we could make keywords be functions
+- isn't that just a pretty way of calling `each` with a block? We could achieve that with some syntactical sugar and coroutines/functions
+- then we would lose the ability to call stuff with tables/structs tho
++ what if using / for tables and stuff, like bit/bxor
+- i don't mean it like that. you can do `table.concat {"this", "that"}` in lua
+- same goes for string literals `print "hai"`
++ i'd like to keep that
+- what about new syntax for tables, then? Or blocks?
++ tables could be [...] and table[i]
+- hmm... wouldn't that be indistingishable from calling `table` with a table literal then?
++ no because the space, unless we allow table [i], but that's unlikely
+- you can call functions in normal lua without the space too
++ ~~i know but that's not pretty~~
+- would you be okay with importing some std inside of the compiled file?
++ aids? in my file? (i know)
+- kek
++ yeah im ok with that
+- then we could just turn tables into full blown objects and translate literals to function calls
+- and also distinguish between hashes and lists/arrays
++ hello am back again. so uh, how would that work? ~~what how~~
+- what? btw, what about getting rid of [...] indexing and replacing that with an infix function?
+- if we have objects for lists/hashes they can have a `get` function. We could get an infix function like this then `hash <get> "key"`
++ oooohhhhhhhh sure, but maybe with some syntactic sugar, maybe hash:"key" or sth
+- that looks interesting, but what about expressions then? you can't just do hash:5+1.
+- maybe `hash .> key`?
+- we could add tuples too, then we could do `hash <. (key, value)`
+- and, for lists, it would be `` list <<. value
++ check the docs/examples in the lxpp repo, and look for the files that start with uppercase, look at how they work, they are typeclasses
+- typeclasses? like the stuff haskell has? also, where's the repo again?
++ repo: https://github.com/daelvn/lxpp and i think so. in luna I want all types to be classes
+
+
+// Function define
+name (x): {
+  print (x)
+}
+Function name = (x): { print(x) }
+
+// defining a new typeclass
+Type CustomString = Type:inherit {
+  toString (String x): {
+    "CustomString:" + x
+  }
+}
