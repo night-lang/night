@@ -1,0 +1,18 @@
+{
+  "name": "language-night",
+  "version": "0.1.0",
+  "description": "Night language for Atom.",
+  "engines": {
+    "atom": "*"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/night-lang/language-night.git"
+  },
+  "bugs": {
+    "url": "https://github.com/night-lang/language-night/issues"
+  },
+  "license": "MIT"
+}
+

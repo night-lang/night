@@ -19,12 +19,12 @@ fn (1, {
 })
 
 // Composition with other functions
-fn (1) other_function (2)
+fn (1, _) <| other_function (2)
 //--------//
 fn (1, other_function (2))
 
 // Composition with comma
-fn (1),
+fn (1, _) <|
   other_function (2)
 //--------//
 fn (1, other_function (2))

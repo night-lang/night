@@ -3,7 +3,7 @@ Class Person = (String name, Integer age) :: {
   String self.age  = age
 }
 
-Person.say (Person self, String phrase) : {
+Person (Person self, String phrase) : {
   print! (self.name .. ": " .. phrase)
 }
 
@@ -20,7 +20,6 @@ Square <- Shape (Integer sides) :: {
 }
 
 // Implements
-
 Interface ITalk = [
   :say (Object self, String phrase) : {
     print! (self.name .. ": " .. phrase)

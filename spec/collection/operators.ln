@@ -42,6 +42,7 @@
 "" // Strings
 '' // Chars
 .  // Container access
+<| // Composition
 
 
 

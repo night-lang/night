@@ -1,0 +1,136 @@
+# Night syntax
+'scopeName': 'source.night'
+'name': 'Night'
+'fileTypes': ['ln', 'ni', 'night']
+
+'patterns' : [
+  # Numbers
+  {
+    'match': '\\b(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))\\b'
+    'name': 'constant.numeric.night'
+  },
+  # Functions
+  {
+    'match': '([^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^\\"\\\'=.,\\(\\)\\{\\}\\[\\]!][^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^\\\'=\\(\\)\\{\\}\\[\\]]+)\\s*\\((?:([^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^\\"\\\'=.,\\(\\)\\{\\}\\[\\]!][^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^\\\'=\\(\\)\\{\\}\\[\\]]+)\\s+([^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^\\"\\\'=.,\\(\\)\\{\\}\\[\\]!][^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^\\\'=\\(\\)\\{\\}\\[\\]]+),\\s*)*\\)\\s*([^:]:)\\s*'
+    'captures':
+      '1':
+        'name': 'entity.name.function.night'
+      '2':
+        'name': 'storage.type.night'
+      '3':
+        'name': 'markup.raw.night'
+      '4':
+        'name': 'keyword.control.night'
+  },
+  # Classes
+  {
+    'match': '([^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^\\"\\\'=.,\\(\\)\\{\\}\\[\\]!][^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^\\\'=\\(\\)\\{\\}\\[\\]]+)\\s*\\((?:([^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^\\"\\\'=.,\\(\\)\\{\\}\\[\\]!][^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^\\\'=\\(\\)\\{\\}\\[\\]]+)\\s+([^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^\\"\\\'=.,\\(\\)\\{\\}\\[\\]!][^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^\\\'=\\(\\)\\{\\}\\[\\]]+),\\s*)*\\)\\s*(::)\\s*'
+    'captures':
+      '1':
+        'name': 'entity.name.function.night'
+      '2':
+        'name': 'storage.type.night'
+      '3':
+        'name': 'markup.raw.night'
+      '4':
+        'name': 'keyword.control.night'
+  },
+  # Strings
+  {
+      'begin': '\''
+      'beginCaptures':
+          '0':
+              'name': 'punctuation.definition.string.begin.night'
+      'end': '\''
+      'endCaptures':
+          '0':
+              'name': 'punctuation.definition.string.end.night'
+      'name': 'string.quoted.single.night'
+      'patterns': [
+          {
+              'match': '\\.'
+              'name': 'constant.character.escape.night'
+          }
+      ]
+  },
+  {
+      'begin': '"'
+      'beginCaptures':
+          '0':
+              'name': 'punctuation.definition.string.begin.night'
+      'end': '"'
+      'endCaptures':
+          '0':
+              'name': 'punctuation.definition.string.end.night'
+      'name': 'string.quoted.double.night'
+      'patterns': [
+          {
+              'match': '\\.'
+              'name': 'constant.character.escape.night'
+          }
+      ]
+  },
+  {
+    'begin': 'r\/'
+    'beginCaptures':
+        '0':
+            'name': 'punctuation.definition.string.begin.night'
+    'end': '\/'
+    'endCaptures':
+        '0':
+            'name': 'punctuation.definition.string.end.night'
+    'name': 'string.regexp.night'
+    'patterns': [
+        {
+            'match': '\\.'
+            'name': 'constant.character.escape.night'
+        }
+    ]
+  }
+  # Symbols
+  {
+    'match': '\\s+:[^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^:\\"\\\'=.,\\(\\)\\{\\}\\[\\]!][^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^:\\\'=\\(\\)\\{\\}\\[\\]]+'
+    'name': 'string.other.night'
+  },
+  # Comments
+  {
+    'match': '\\/\\/\\s*.+?\\n'
+    'name': 'comment.line.double-slash.night'
+  },
+  {
+    'begin': '\\/\\*'
+    'end': '\\*\\/'
+    'name': 'string.block.night'
+  },
+  # Operators
+  {
+    'match': '\\+{1,2}|\\-{1,2}|\\*{1,2}|\\/|\\%|\\!=?|\\.{2}(?!\\.)|==?|<[=+-<\\|]?|>[=>]?|\\&{1,2}|\\|{1,2}|::?'
+    'name': 'keyword.operator.night'
+  },
+  # Types
+  {
+    'match': '\\b(String|Char|Number|Integer|Float|Boolean|Table|Set|List|Hash|Null|Function|Class|Interface|Block)(<.+?>)?\\b'
+    'captures':
+      '1':
+        'name': 'markup.raw.night'
+      '1':
+        'name': 'storage.type.night'
+      '2':
+        'name': 'markup.raw.night'
+  },
+  {
+    'match': '([^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^:\\"\\\'=.,\\(\\)\\{\\}\\[\\]!][^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^:\\\'=\\(\\)\\{\\}\\[\\]]+)\\s+([^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^:\\"\\\'=.,\\(\\)\\{\\}\\[\\]!][^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^:\\\'=\\(\\)\\{\\}\\[\\]]+)\\s*='
+    'captures':
+      '1':
+        'name': 'storage.type.night'
+      '2':
+        'name': 'variable.other.night'
+  }
+  # self
+  {
+    'match': '\\bself([.:][^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^:\\"\\\'=.,\\(\\)\\{\\}\\[\\]!][^\\s\\+\\-\\*\\/\\%\\<\\>\\&\\|\\^:\\\'=\\(\\)\\{\\}\\[\\]]+)?\\b'
+    'name': 'variable.language.night'
+  }
+
+
+]

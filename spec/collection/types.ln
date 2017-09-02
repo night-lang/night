@@ -37,7 +37,6 @@ c (String name, Integer age) :: {
   //code
 }
 
-Object<c> = c ()
 c o = c ()
 
 Interface it = [
