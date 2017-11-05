@@ -121,7 +121,7 @@ local function Ef (p) -- Function declaration expression
       Type   = "Function",
       Value  = {id, args, block},
       FId    = id,
-      -- TODO Define Ga and Gb
+      -- TODO Define Ga and Gb id:1 gh:5
       FArgl  = Ga(args), -- Group_args
       FBlock = Gb(block) -- Group_blocks
     }
@@ -136,7 +136,7 @@ local function Ec (p) -- Class declaration expression
       Type   = "Class",
       Value  = {id, args, block},
       CId    = id,
-      -- TODO Define Ga and Gb
+      -- TODO Define Ga and Gb id:0 gh:4
       CArgl  = Ga(args), -- Group_args
       CBlock = Gb(block) -- Group_blocks
     }
