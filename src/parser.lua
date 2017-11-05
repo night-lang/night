@@ -32,9 +32,121 @@ local function Sc (parent)
 end
 
 -- Node functions (AST Creating)
-function Eb (p) -- Boolean
+local function Eb (p) -- Boolean expr
   return p / function (value)
+    return {
+      Kind  = "expr",
+      Type  = "Boolean",
+      Value = value
+    }
+  end
 end
+
+local function Eni (p, value, sci) -- Integer expr
+  return {
+    Kind  = "expr",
+    Type  = "Integer",
+    Value = value,
+    NSci  = sci
+  }
+end
+
+local function Enf (p, value, sci) -- Float expr
+  return {
+    Kind  = "expr",
+    Type  = "Float",
+    Value = value,
+    NSci  = sci
+  }
+end
+
+local function Ens (p, value) -- Scientific expr
+  local resolve_be = "0" .. value:match("[+-]*%d*%.*%d+[eE]"):match("[+-]%d*%.*%d+"):gsub("+", "")
+  local resolve_ae = value:match("[eE][+-]*%d"):match("[+-]*%d"):gsub("+", "")
+  local sign       = resolve_ae:match(".")
+  if not sign:match("[+-]") then sign = "+" end
+  local resolve    = resolve_be.tonumber() * (10 ^ resolve_ae.tonumber())
+  if (resolve % 1) ~= 0 then
+    return Enf(p, resolve, true)
+  else
+    return Eni(p, resolve, true)
+  end
+end
+
+local function En (p) -- Number expr
+  return p / function (value)
+    if value:match("eE") then return Ens(p, value) elseif
+       value:match("%.") then return Enf(p, value) else
+       return Eni(p, value) end
+  end
+end
+
+local function Esc (p, value) -- Char expr
+  return {
+    Kind  = "expr",
+    Type  = "Char",
+    Value = value
+  }
+end
+
+local function Ess (p, value) -- Symbol expr
+  return {
+    Kind  = "expr",
+    Type  = "Symbol",
+    Value = value
+  }
+end
+
+local function Est (p, value) -- String literal expr
+  return {
+    Kind  = "expr",
+    Type  = "String",
+    Value = value
+  }
+end
+
+local function Es (p) -- String expr
+  return p / function (value)
+    if value:match("^:") then return Ess (p, value) elseif
+       value:match("^'") then return Esc (p, value) elseif
+       value:match("^\"") then return Est (p, value) end
+  end
+end
+
+local function Ef (p) -- Function declaration expression
+  -- id? ( args? ) : block 
+  return p / function (id, args, block)
+    return {
+      Kind   = "expr",
+      Type   = "Function",
+      Value  = {id, args, block},
+      FId    = id,
+      -- TODO Define Ga and Gb
+      FArgl  = Ga(args), -- Group_args
+      FBlock = Gb(block) -- Group_blocks
+    }
+  end
+end
+
+local function Ec (p) -- Class declaration expression
+  -- id? ( args? ) :: block 
+  return p / function (id, args, block)
+    return {
+      Kind   = "expr",
+      Type   = "Class",
+      Value  = {id, args, block},
+      CId    = id,
+      -- TODO Define Ga and Gb
+      CArgl  = Ga(args), -- Group_args
+      CBlock = Gb(block) -- Group_blocks
+    }
+  end
+end
+
+local function Et (p) -- Table declaration
+  -- [ key* expr ,* ]
+end
+
 
 
 -- Define lexical elements
@@ -90,8 +202,7 @@ local Lidentifier = O.wspace * C(O.identifier_char_start^-1 * O.identifier_char^
 local G = P{
   "main",
   lhs  = Lidentifier * Lidentifier,
-  id   = Lidentifier * 
-  expr = 
+  id   = Lidentifier
 }
 
 
