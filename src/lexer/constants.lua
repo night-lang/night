@@ -1,51 +1,50 @@
---[[
-Night | lexer/constants.lua
-..... | Constants for the lexer.
-..... | By daelvn (daelvn@gmail.com)
-..... | MIT Licensed
-]]--
+-- Night
+-- src/lexer/constants.lua
+-- Constants for lexer.lua
 
--- Linter
-local ipairs = ipairs
-local string = string
+local type, pairs = type, pairs
+local Const = {
+  identifier = {},
+  digits     = {},
+  quote      = {},
+}
 
--- Load LPeg
-local lpeg = require "lpeg"
+-- Whites
+Const.space     = {" ", "\t"}
+Const.linebreak = {"\r", "\n"}
+Const.white    = {Const.space, Const.linebreak}
 
--- Util
-local function urange(us,ue)
-  local r  = lpeg.P("")
-  for i=us,ue do
-    r = r + lpeg.P(string.char(i))
+-- Identifiers
+Const.identifier.invalidStart = "+-*/%&|\"'()[]{}^:.!0123456789"
+Const.identifier.invalid      = "+-*/%&|\"'()[]{}^:."
+
+-- Digits
+Const.digits.dec = "0123456789"
+Const.digits.bin = "01"
+Const.digits.hex = "ABCDEF"
+Const.digits.oct = "01234567"
+Const.digits.zr  = "0"
+Const.digits.mod = "dbxc"
+Const.digits.all = "0123456789ABCDEF"
+-- Quotes
+Const.quote.single = "'"
+Const.quote.double = '"'
+Const.quote.symbol = ":"
+
+-- Escapes
+Const.slash     = "/"
+Const.backslash = "\\"
+
+-- Comparing function
+Const.eq = function()end
+function Const.eq(a,b)
+  if type(b) == "string" then
+    return b:match(a)
+  elseif type(b) == "table" then
+    for _,e in pairs(b) do
+      return Const.eq(a,e)
+    end
   end
-  return r
 end
 
--- Create constants
-return {
-  white  = lpeg.S("\r\n\t")^0,
-  space  = lpeg.S(" ")^0,
-  wspace = lpeg.S(" \r\n\t")^0,
-  
-  identifier_char_start = 1 - lpeg.S("+-*/%&|\"'()[]{}^:.!"),
-  identifier_char       = 1 - lpeg.S("+-*/%&|\"'()[]{}^:."),
-  
-  digit    = lpeg.R("09"),
-  hexdigit = lpeg.R("09", "AF", "af"),
-  octdigit = lpeg.R("07"),
-  bindigit = lpeg.R("01"),
-  
-  squote = lpeg.P("'"),
-  dquote = lpeg.P("\""),
-  
-  any    = 1 - lpeg.S("\r\n\t")^0,
-  wany   = lpeg.P(1),
-  
-  escape = lpeg.P("\\") * lpeg.P(1),
-  
-  slash  = lpeg.P("/"),
-  bslash = lpeg.P("\\"),
-  
-  instring = lpeg.P(1) + (lpeg.P("\\") * lpeg.P(1)),
-  inchar   = lpeg.P(1) + (lpeg.P("\\") * lpeg.P(1)),
-}
+return Const
